@@ -25,6 +25,10 @@ function App(){
  const close=()=>setMenu(false)
  return <div className="app">
   <div className="noise"/>
+  <div className="cinematic-glow glow-one"/>
+  <div className="cinematic-glow glow-two"/>
+  <div className="film-grid"/>
+  <div className="particle-field" aria-hidden="true">{Array.from({length:18},(_,i)=><i key={i} style={{'--i':i}}/>)}</div>
   <header className="nav wrap">
    <a className="brand" href="#home" onClick={close}><span className="brand-mark">A<span>.</span></span><span>ARUNABH DAS</span></a>
    <button className="menu-btn" onClick={()=>setMenu(!menu)} aria-label="Toggle navigation">{menu?<X/>:<Menu/>}</button>
@@ -39,7 +43,7 @@ function App(){
      <motion.div className="hero-actions" initial={{opacity:0,y:12}} animate={{opacity:1,y:0}} transition={{delay:.65}}><a className="button primary" href="#projects">Explore my work <ArrowUpRight size={17}/></a><a className="button secondary" href="#contact">Let's connect <ArrowDown size={16}/></a></motion.div>
      <motion.div className="hero-social" initial={{opacity:0}} animate={{opacity:1}} transition={{delay:.8}}><a href={GITHUB} target="_blank" rel="noreferrer"><Github size={17}/> GitHub</a><span>·</span><a href={LINKEDIN} target="_blank" rel="noreferrer">in LinkedIn</a><span>·</span><span><MapPin size={15}/> West Bengal, India</span></motion.div>
     </div>
-    <motion.div className="hero-art" initial={{opacity:0,scale:.88,rotate:3}} animate={{opacity:1,scale:1,rotate:0}} transition={{duration:1,delay:.3}}>
+    <motion.div className="hero-art" initial={{opacity:0,scale:.88,rotate:3}} animate={{opacity:1,scale:1,rotate:0}} whileHover={{scale:1.03,rotate:1}} transition={{duration:1,delay:.3}}>
      <img className="profile-photo" src="./profile.png" alt="Arunabh Das"/><div className="orbit orbit-one"/><div className="orbit orbit-two"/><div className="core-card"><div className="core-top"><span>BUILD / DEPLOY / REPEAT</span><span className="core-live">● LIVE</span></div><div className="terminal-mark"><Terminal size={48}/></div><div className="code-lines"><i/><i/><i/><i/></div><div className="core-bottom"><span>ARUNABH.DAS</span><span>DEV_2027</span></div></div>
      <div className="float-chip chip-a"><Cpu size={16}/> IoT & Embedded</div><div className="float-chip chip-b"><Cloud size={16}/> Cloud & DevOps</div><div className="float-chip chip-c"><Code2 size={16}/> Full-stack mindset</div>
     </motion.div>
