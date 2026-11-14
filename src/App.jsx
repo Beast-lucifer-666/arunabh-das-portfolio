@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { motion } from 'framer-motion'
 import { ArrowDown, ArrowUpRight, GitBranch as Github, Mail, Menu, X, Code2, Cpu, Cloud, Terminal, ExternalLink, GraduationCap, Sparkles, Layers3, MapPin } from 'lucide-react'
 
@@ -22,6 +22,7 @@ const reveal = { hidden:{opacity:0,y:28}, show:{opacity:1,y:0,transition:{durati
 function Section({id,eyebrow,title,children}) { return <section id={id} className="section"><motion.div variants={reveal} initial="hidden" whileInView="show" viewport={{once:true,amount:.14}}><div className="eyebrow">{eyebrow}</div><h2>{title}</h2></motion.div>{children}</section> }
 function App(){
  const [menu,setMenu]=useState(false)
+ useEffect(()=>{const block=(e)=>e.preventDefault();document.addEventListener('contextmenu',block);document.addEventListener('dragstart',block);return()=>{document.removeEventListener('contextmenu',block);document.removeEventListener('dragstart',block)}},[])
  const close=()=>setMenu(false)
  return <div className="app">
   <div className="noise"/>
