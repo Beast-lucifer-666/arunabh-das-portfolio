@@ -37,7 +37,6 @@ function App(){
   <main>
    <section className="hero wrap" id="home">
     <div className="hero-copy">
-     <motion.div className="hero-profile-frame" initial={{opacity:0,scale:.7,x:-20}} animate={{opacity:1,scale:1,x:0}} transition={{duration:.8,delay:.1}}><img src="./profile.png" alt="Arunabh Das professional portrait"/><span>ARUNABH DAS / DEVELOPER</span></motion.div>
      <motion.div className="availability" initial={{opacity:0,y:10}} animate={{opacity:1,y:0}} transition={{delay:.15}}><span className="pulse"/> OPEN TO OPPORTUNITIES <span className="availability-dot">/</span> 2027 GRADUATE</motion.div>
      <motion.h1 initial={{opacity:0,y:25}} animate={{opacity:1,y:0}} transition={{duration:.8,delay:.2}}>Building ideas<br/>into <span className="gradient-text">real systems.</span></motion.h1>
      <motion.p className="hero-sub" initial={{opacity:0}} animate={{opacity:1}} transition={{delay:.5}}>I'm <strong>Arunabh Das</strong>, a Computer Science & Engineering student who enjoys building across software, IoT, and cloud technologies.</motion.p>
