@@ -4,6 +4,8 @@ import { ArrowDown, ArrowUpRight, GitBranch as Github, Mail, Menu, X, Code2, Cpu
 
 const GITHUB = 'https://github.com/Beast-lucifer-666'
 const LINKEDIN = 'https://www.linkedin.com/in/arunabh-das-4bb4a8352/'
+const EMAIL = 'arunabhdas2005@gmail.com'
+const PHONE = '9434845512'
 const projects = [
   { n:'01', title:'Volt', type:'IoT · Android · Energy Monitoring', desc:'A smart energy monitoring and control system built around ESP32, PZEM-004T, relay modules, OLED display and Firebase Realtime Database, with a companion Android app.', tags:['ESP32','Firebase','Android','IoT','C++'], link:'https://github.com/Beast-lucifer-666/Volt-v1', featured:true },
   { n:'02', title:'Cyber Sentinel', type:'Python · Flask · DevOps', desc:'A Flask-based cybersecurity project developed alongside a cloud-native toolchain and deployment workflow.', tags:['Python','Flask','Docker','AWS','CI/CD'], link:GITHUB, featured:false },
@@ -57,7 +59,7 @@ function App(){
    <Section id="education" eyebrow="04 / EDUCATION" title="The learning journey.">
     <motion.div className="education-card" variants={reveal} initial="hidden" whileInView="show" viewport={{once:true}}><div className="edu-icon"><GraduationCap size={26}/></div><div className="edu-content"><div className="edu-period">B.TECH · EXPECTED JULY 2027</div><h3>Bengal College of Engineering and Technology</h3><p>Computer Science & Engineering</p><span>Durgapur, West Bengal, India</span></div><div className="edu-side">UNDERGRADUATE</div></motion.div>
    </Section>
-   <section id="contact" className="contact-section wrap"><motion.div className="contact-box" variants={reveal} initial="hidden" whileInView="show" viewport={{once:true}}><div className="eyebrow">05 / WHAT'S NEXT?</div><h2>Have a project or<br/><span className="gradient-text">an opportunity?</span></h2><p>I'm always interested in connecting with people building thoughtful technology. Let's talk.</p><div className="contact-links"><a className="button primary" href={LINKEDIN} target="_blank" rel="noreferrer">Connect on LinkedIn <ArrowUpRight size={17}/></a><a className="button secondary" href="./cv.pdf" target="_blank" rel="noreferrer">Download CV <ArrowDown size={16}/></a></div><div className="contact-orb"/></motion.div></section>
+   <section id="contact" className="contact-section wrap"><motion.div className="contact-box" variants={reveal} initial="hidden" whileInView="show" viewport={{once:true}}><div className="eyebrow">05 / WHAT'S NEXT?</div><h2>Have a project or<br/><span className="gradient-text">an opportunity?</span></h2><p>I'm always interested in connecting with people building thoughtful technology. Let's talk.</p><div className="contact-details"><a href={'mailto:'+EMAIL}><Mail size={15}/> {EMAIL}</a><a href={'tel:'+PHONE}><span>☎</span> +91 {PHONE}</a></div><div className="contact-links"><a className="button primary" href={LINKEDIN} target="_blank" rel="noreferrer">Connect on LinkedIn <ArrowUpRight size={17}/></a><a className="button secondary" href="./cv.pdf" target="_blank" rel="noreferrer">Download CV <ArrowDown size={16}/></a></div><div className="contact-orb"/></motion.div></section>
   </main>
   <footer className="footer wrap"><a className="brand" href="#home"><span className="brand-mark">A<span>.</span></span><span>ARUNABH DAS</span></a><span>Designed & built with React. © {new Date().getFullYear()} Arunabh Das.</span><a href="#home" className="back-top">BACK TO TOP ↑</a></footer>
  </div>
