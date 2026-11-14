@@ -1,8 +1,9 @@
 import { useState } from 'react'
 import { motion } from 'framer-motion'
-import { ArrowDown, ArrowUpRight, Github, Linkedin, Mail, Menu, X, Code2, Cpu, Cloud, Terminal, ExternalLink, GraduationCap, Sparkles, Layers3, MapPin } from 'lucide-react'
+import { ArrowDown, ArrowUpRight, GitBranch as Github, Mail, Menu, X, Code2, Cpu, Cloud, Terminal, ExternalLink, GraduationCap, Sparkles, Layers3, MapPin } from 'lucide-react'
 
 const GITHUB = 'https://github.com/Beast-lucifer-666'
+const LINKEDIN = 'https://www.linkedin.com/in/arunabh-das-4bb4a8352/'
 const projects = [
   { n:'01', title:'Volt', type:'IoT · Android · Energy Monitoring', desc:'A smart energy monitoring and control system built around ESP32, PZEM-004T, relay modules, OLED display and Firebase Realtime Database, with a companion Android app.', tags:['ESP32','Firebase','Android','IoT','C++'], link:'https://github.com/Beast-lucifer-666/Volt-v1', featured:true },
   { n:'02', title:'Cyber Sentinel', type:'Python · Flask · DevOps', desc:'A Flask-based cybersecurity project developed alongside a cloud-native toolchain and deployment workflow.', tags:['Python','Flask','Docker','AWS','CI/CD'], link:GITHUB, featured:false },
@@ -34,10 +35,10 @@ function App(){
      <motion.h1 initial={{opacity:0,y:25}} animate={{opacity:1,y:0}} transition={{duration:.8,delay:.2}}>Building ideas<br/>into <span className="gradient-text">real systems.</span></motion.h1>
      <motion.p className="hero-sub" initial={{opacity:0}} animate={{opacity:1}} transition={{delay:.5}}>I'm <strong>Arunabh Das</strong>, a Computer Science & Engineering student who enjoys building across software, IoT, and cloud technologies.</motion.p>
      <motion.div className="hero-actions" initial={{opacity:0,y:12}} animate={{opacity:1,y:0}} transition={{delay:.65}}><a className="button primary" href="#projects">Explore my work <ArrowUpRight size={17}/></a><a className="button secondary" href="#contact">Let's connect <ArrowDown size={16}/></a></motion.div>
-     <motion.div className="hero-social" initial={{opacity:0}} animate={{opacity:1}} transition={{delay:.8}}><a href={GITHUB} target="_blank" rel="noreferrer"><Github size={17}/> GitHub</a><span>·</span><span><MapPin size={15}/> West Bengal, India</span></motion.div>
+     <motion.div className="hero-social" initial={{opacity:0}} animate={{opacity:1}} transition={{delay:.8}}><a href={GITHUB} target="_blank" rel="noreferrer"><Github size={17}/> GitHub</a><span>·</span><a href={LINKEDIN} target="_blank" rel="noreferrer">in LinkedIn</a><span>·</span><span><MapPin size={15}/> West Bengal, India</span></motion.div>
     </div>
     <motion.div className="hero-art" initial={{opacity:0,scale:.88,rotate:3}} animate={{opacity:1,scale:1,rotate:0}} transition={{duration:1,delay:.3}}>
-     <div className="orbit orbit-one"/><div className="orbit orbit-two"/><div className="core-card"><div className="core-top"><span>BUILD / DEPLOY / REPEAT</span><span className="core-live">● LIVE</span></div><div className="terminal-mark"><Terminal size={48}/></div><div className="code-lines"><i/><i/><i/><i/></div><div className="core-bottom"><span>ARUNABH.DAS</span><span>DEV_2027</span></div></div>
+     <img className="profile-photo" src="./profile.png" alt="Arunabh Das"/><div className="orbit orbit-one"/><div className="orbit orbit-two"/><div className="core-card"><div className="core-top"><span>BUILD / DEPLOY / REPEAT</span><span className="core-live">● LIVE</span></div><div className="terminal-mark"><Terminal size={48}/></div><div className="code-lines"><i/><i/><i/><i/></div><div className="core-bottom"><span>ARUNABH.DAS</span><span>DEV_2027</span></div></div>
      <div className="float-chip chip-a"><Cpu size={16}/> IoT & Embedded</div><div className="float-chip chip-b"><Cloud size={16}/> Cloud & DevOps</div><div className="float-chip chip-c"><Code2 size={16}/> Full-stack mindset</div>
     </motion.div>
     <a className="scroll-cue" href="#about"><span/> SCROLL TO EXPLORE</a>
@@ -56,9 +57,10 @@ function App(){
    <Section id="education" eyebrow="04 / EDUCATION" title="The learning journey.">
     <motion.div className="education-card" variants={reveal} initial="hidden" whileInView="show" viewport={{once:true}}><div className="edu-icon"><GraduationCap size={26}/></div><div className="edu-content"><div className="edu-period">B.TECH · EXPECTED JULY 2027</div><h3>Bengal College of Engineering and Technology</h3><p>Computer Science & Engineering</p><span>Durgapur, West Bengal, India</span></div><div className="edu-side">UNDERGRADUATE</div></motion.div>
    </Section>
-   <section id="contact" className="contact-section wrap"><motion.div className="contact-box" variants={reveal} initial="hidden" whileInView="show" viewport={{once:true}}><div className="eyebrow">05 / WHAT'S NEXT?</div><h2>Have a project or<br/><span className="gradient-text">an opportunity?</span></h2><p>I'm always interested in connecting with people building thoughtful technology. Let's talk.</p><a className="button primary" href="https://github.com/Beast-lucifer-666" target="_blank" rel="noreferrer">Connect on GitHub <ArrowUpRight size={17}/></a><div className="contact-orb"/></motion.div></section>
+   <section id="contact" className="contact-section wrap"><motion.div className="contact-box" variants={reveal} initial="hidden" whileInView="show" viewport={{once:true}}><div className="eyebrow">05 / WHAT'S NEXT?</div><h2>Have a project or<br/><span className="gradient-text">an opportunity?</span></h2><p>I'm always interested in connecting with people building thoughtful technology. Let's talk.</p><div className="contact-links"><a className="button primary" href={LINKEDIN} target="_blank" rel="noreferrer">Connect on LinkedIn <ArrowUpRight size={17}/></a><a className="button secondary" href="./cv.pdf" target="_blank" rel="noreferrer">Download CV <ArrowDown size={16}/></a></div><div className="contact-orb"/></motion.div></section>
   </main>
   <footer className="footer wrap"><a className="brand" href="#home"><span className="brand-mark">A<span>.</span></span><span>ARUNABH DAS</span></a><span>Designed & built with React. © {new Date().getFullYear()} Arunabh Das.</span><a href="#home" className="back-top">BACK TO TOP ↑</a></footer>
  </div>
 }
 export default App
+
