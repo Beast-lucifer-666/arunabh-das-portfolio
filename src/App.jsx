@@ -163,31 +163,35 @@ export default function App() {
   const ctxRef = useRef(null)
   const timerRef = useRef(null)
 
-  // Autoplay Sparkle by default (and unlock on first interaction if browser blocks autoplay)
+  // Autoplay Sparkle immediately on load (with instant unlock on any gesture if browser blocks)
   useEffect(() => {
     const audio = new Audio('./sparkle.mp3')
     audio.loop = true
+    audio.preload = 'auto'
+    audio.autoplay = true
     audio.volume = 0.45
     audioRef.current = audio
+
+    const events = ['pointerdown', 'keydown', 'touchstart', 'scroll', 'mousemove']
+    const cleanup = () => {
+      events.forEach((ev) => window.removeEventListener(ev, tryPlay))
+    }
 
     const tryPlay = async () => {
       try {
         await audio.play()
         setMusicPlaying(true)
-        window.removeEventListener('pointerdown', tryPlay)
-        window.removeEventListener('keydown', tryPlay)
+        cleanup()
       } catch {
-        // Browser blocked autoplay until first user gesture
+        // Browser blocked unmuted autoplay until first user gesture
       }
     }
 
     tryPlay()
-    window.addEventListener('pointerdown', tryPlay, { once: true })
-    window.addEventListener('keydown', tryPlay, { once: true })
+    events.forEach((ev) => window.addEventListener(ev, tryPlay, { passive: true }))
 
     return () => {
-      window.removeEventListener('pointerdown', tryPlay)
-      window.removeEventListener('keydown', tryPlay)
+      cleanup()
       audio.pause()
     }
   }, [])
