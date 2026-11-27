@@ -213,14 +213,40 @@ a {
 }
 
 /* Sky & Comet Backdrops with Anime Scene Artwork + Ken Burns Motion */
-.yn-scene-bg {
+.yn-scene-bg-img {
   position: absolute;
   inset: -4%;
-  background-size: cover;
-  background-position: center;
+  width: 108%;
+  height: 108%;
+  object-fit: cover;
+  object-position: center;
   z-index: 0;
+  pointer-events: none;
   animation: kenBurns 24s ease-in-out infinite alternate;
   will-change: transform;
+}
+
+.yn-scene-scrim {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.yn-sky-hero .yn-scene-scrim {
+  background: linear-gradient(180deg, rgba(16, 40, 82, 0.12) 0%, rgba(255, 255, 255, 0.22) 55%, rgba(244, 198, 184, 0.35) 100%);
+}
+.yn-sky-night .yn-scene-scrim {
+  background: linear-gradient(180deg, rgba(5, 8, 20, 0.48), rgba(11, 22, 51, 0.56));
+}
+.yn-sky-constellation .yn-scene-scrim {
+  background: linear-gradient(180deg, rgba(4, 7, 17, 0.42), rgba(8, 16, 36, 0.52));
+}
+.yn-sky-dusk .yn-scene-scrim {
+  background: linear-gradient(180deg, rgba(24, 20, 44, 0.45), rgba(59, 29, 74, 0.52));
+}
+.yn-sky-closing .yn-scene-scrim {
+  background: linear-gradient(180deg, rgba(7, 12, 28, 0.42), rgba(5, 8, 20, 0.6));
 }
 
 @keyframes kenBurns {
@@ -239,15 +265,8 @@ a {
   z-index: 2;
 }
 
-.yn-sky-hero .yn-scene-bg {
-  background-image: linear-gradient(180deg, rgba(16, 40, 82, 0.18), rgba(244, 198, 184, 0.25)), url('./scenes/landing-sky.jpg');
-}
 .yn-sky-hero::after {
   background: linear-gradient(180deg, transparent 0%, #050814 100%);
-}
-
-.yn-sky-night .yn-scene-bg {
-  background-image: linear-gradient(180deg, rgba(5, 8, 20, 0.52), rgba(11, 22, 51, 0.58)), url('./scenes/celestial-twilight.jpg');
 }
 .yn-sky-night::before {
   background: linear-gradient(180deg, #050814 0%, transparent 100%);
@@ -255,29 +274,17 @@ a {
 .yn-sky-night::after {
   background: linear-gradient(180deg, transparent 0%, #040711 100%);
 }
-
-.yn-sky-constellation .yn-scene-bg {
-  background-image: linear-gradient(180deg, rgba(4, 7, 17, 0.45), rgba(8, 16, 36, 0.55)), url('./scenes/constellation-night.jpg');
-}
 .yn-sky-constellation::before {
   background: linear-gradient(180deg, #040711 0%, transparent 100%);
 }
 .yn-sky-constellation::after {
   background: linear-gradient(180deg, transparent 0%, #18142c 100%);
 }
-
-.yn-sky-dusk .yn-scene-bg {
-  background-image: linear-gradient(180deg, rgba(24, 20, 44, 0.48), rgba(59, 29, 74, 0.55)), url('./scenes/anime-city.jpg');
-}
 .yn-sky-dusk::before {
   background: linear-gradient(180deg, #18142c 0%, transparent 100%);
 }
 .yn-sky-dusk::after {
   background: linear-gradient(180deg, transparent 0%, #070c1c 100%);
-}
-
-.yn-sky-closing .yn-scene-bg {
-  background-image: linear-gradient(180deg, rgba(7, 12, 28, 0.45), rgba(5, 8, 20, 0.62)), url('./scenes/final-horizon.jpg');
 }
 .yn-sky-closing::before {
   background: linear-gradient(180deg, #070c1c 0%, transparent 100%);
