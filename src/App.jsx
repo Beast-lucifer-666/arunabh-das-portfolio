@@ -1,73 +1,420 @@
-import { useEffect, useState } from 'react'
-import { motion } from 'framer-motion'
-import { ArrowDown, ArrowUpRight, GitBranch as Github, Mail, Menu, X, Code2, Cpu, Cloud, Terminal, ExternalLink, GraduationCap, Sparkles, Layers3, MapPin } from 'lucide-react'
+import { useState } from 'react'
+import { motion, AnimatePresence } from 'framer-motion'
+import {
+  ArrowUpRight,
+  ArrowDown,
+  Code2,
+  Cpu,
+  Cloud,
+  Layers3,
+  Mail,
+  Phone,
+  MapPin,
+  GraduationCap,
+  Sparkles,
+  Menu,
+  X,
+  ExternalLink,
+  GitBranch as Github,
+} from 'lucide-react'
 
 const GITHUB = 'https://github.com/Beast-lucifer-666'
 const LINKEDIN = 'https://www.linkedin.com/in/arunabh-das-4bb4a8352/'
 const EMAIL = 'arunabhdas2005@gmail.com'
-const PHONE = '9434845512'
-const projects = [
-  { n:'01', title:'Volt', type:'IoT · Android · Energy Monitoring', desc:'A smart energy monitoring and control system built around ESP32, PZEM-004T, relay modules, OLED display and Firebase Realtime Database, with a companion Android app.', tags:['ESP32','Firebase','Android','IoT','C++'], link:'https://github.com/Beast-lucifer-666/Volt-v1', featured:true },
-  { n:'02', title:'Cyber Sentinel', type:'Python · Flask · DevOps', desc:'A Flask-based cybersecurity project developed alongside a cloud-native toolchain and deployment workflow.', tags:['Python','Flask','Docker','AWS','CI/CD'], link:GITHUB, featured:false },
-  { n:'03', title:'Daily Motivation', type:'Frontend · React', desc:'A daily motivation experience with time-aware greetings, quotes, a live clock, weather, theme switching and animated visual details.', tags:['React','Vite','JavaScript','CSS'], link:GITHUB, featured:false },
-  { n:'04', title:'Banking Sector Production Build', type:'Cloud · Kubernetes · Deployment', desc:'A production-style banking application deployment project exploring Kubernetes workloads, MySQL, service exposure, health checks and rollout strategies.', tags:['AWS','Kubernetes','Docker','MySQL','CI/CD'], link:'https://github.com/Beast-lucifer-666/BANKING-SECTOR-PRODUCTION-BUILD', featured:false },
-]
-const skills = [
-  {icon:Code2, title:'Programming', items:['C','Java','Python','JavaScript']},
-  {icon:Layers3, title:'Frontend & Apps', items:['React','Vite','HTML & CSS','Android Development']},
-  {icon:Cpu, title:'IoT & Backend', items:['ESP32','Firebase','Flask','REST concepts']},
-  {icon:Cloud, title:'Cloud & Data', items:['AWS','Docker','Kubernetes','SQL','MongoDB','CI/CD']},
-]
-const reveal = { hidden:{opacity:0,y:28}, show:{opacity:1,y:0,transition:{duration:.65,ease:[.22,1,.36,1]}} }
-function Section({id,eyebrow,title,children}) { return <section id={id} className="section"><motion.div variants={reveal} initial="hidden" whileInView="show" viewport={{once:true,amount:.14}}><div className="eyebrow">{eyebrow}</div><h2>{title}</h2></motion.div>{children}</section> }
-function App(){
- const [menu,setMenu]=useState(false)
- useEffect(()=>{const block=(e)=>e.preventDefault();document.addEventListener('contextmenu',block);document.addEventListener('dragstart',block);return()=>{document.removeEventListener('contextmenu',block);document.removeEventListener('dragstart',block)}},[])
- const close=()=>setMenu(false)
- return <div className="app">
-  <div className="noise"/>
-  <div className="cinematic-glow glow-one"/>
-  <div className="cinematic-glow glow-two"/>
-  <div className="film-grid"/>
-  <div className="particle-field" aria-hidden="true">{Array.from({length:18},(_,i)=><i key={i} style={{'--i':i}}/>)}</div>
-  <header className="nav wrap">
-   <a className="brand" href="#home" onClick={close}><span className="brand-mark">A<span>.</span></span><span>ARUNABH DAS</span></a>
-   <button className="menu-btn" onClick={()=>setMenu(!menu)} aria-label="Toggle navigation">{menu?<X/>:<Menu/>}</button>
-   <nav className={menu?'nav-links open':'nav-links'}>{[['About','#about'],['Projects','#projects'],['Skills','#skills'],['Education','#education'],['Contact','#contact']].map(([t,h])=><a key={t} href={h} onClick={close}>{t}</a>)}<a className="nav-cta" href={GITHUB} target="_blank" rel="noreferrer">GitHub <ArrowUpRight size={15}/></a></nav>
-  </header>
-  <main>
-   <section className="hero wrap" id="home">
-    <div className="hero-copy">
-     <motion.div className="availability" initial={{opacity:0,y:10}} animate={{opacity:1,y:0}} transition={{delay:.15}}><span className="pulse"/> OPEN TO OPPORTUNITIES <span className="availability-dot">/</span> 2027 GRADUATE</motion.div>
-     <motion.h1 initial={{opacity:0,y:25}} animate={{opacity:1,y:0}} transition={{duration:.8,delay:.2}}>Building ideas<br/>into <span className="gradient-text">real systems.</span></motion.h1>
-     <motion.p className="hero-sub" initial={{opacity:0}} animate={{opacity:1}} transition={{delay:.5}}>I'm <strong>Arunabh Das</strong>, a Computer Science & Engineering student who enjoys building across software, IoT, and cloud technologies.</motion.p>
-     <motion.div className="hero-actions" initial={{opacity:0,y:12}} animate={{opacity:1,y:0}} transition={{delay:.65}}><a className="button primary" href="#projects">Explore my work <ArrowUpRight size={17}/></a><a className="button secondary" href="#contact">Let's connect <ArrowDown size={16}/></a></motion.div>
-     <motion.div className="hero-social" initial={{opacity:0}} animate={{opacity:1}} transition={{delay:.8}}><a href={GITHUB} target="_blank" rel="noreferrer"><Github size={17}/> GitHub</a><span>·</span><a href={LINKEDIN} target="_blank" rel="noreferrer">in LinkedIn</a><span>·</span><span><MapPin size={15}/> West Bengal, India</span></motion.div>
-    </div>
-    <motion.div className="hero-art" initial={{opacity:0,scale:.88,rotate:3}} animate={{opacity:1,scale:1,rotate:0}} whileHover={{scale:1.03,rotate:1}} transition={{duration:1,delay:.3}}>
-     <img className="profile-photo" src="./profile.png" alt="Arunabh Das"/><div className="orbit orbit-one"/><div className="orbit orbit-two"/><div className="core-card"><div className="core-top"><span>BUILD / DEPLOY / REPEAT</span><span className="core-live">● LIVE</span></div><div className="terminal-mark"><Terminal size={48}/></div><div className="code-lines"><i/><i/><i/><i/></div><div className="core-bottom"><span>ARUNABH.DAS</span><span>DEV_2027</span></div></div>
-     <div className="float-chip chip-a"><Cpu size={16}/> IoT & Embedded</div><div className="float-chip chip-b"><Cloud size={16}/> Cloud & DevOps</div><div className="float-chip chip-c"><Code2 size={16}/> Full-stack mindset</div>
-    </motion.div>
-    <a className="scroll-cue" href="#about"><span/> SCROLL TO EXPLORE</a>
-   </section>
-   <Section id="about" eyebrow="01 / A LITTLE ABOUT ME" title={<>Curious by nature.<br/><span className="muted-title">Builder by practice.</span></>}>
-    <div className="about-grid"><motion.div className="about-lead" variants={reveal} initial="hidden" whileInView="show" viewport={{once:true}}><p>I'm pursuing a <strong>B.Tech in Computer Science & Engineering</strong> at Bengal College of Engineering and Technology, Durgapur.</p><p>I like working at the intersection of software and hardware—turning ideas into working applications, connected devices, and deployable systems. My projects have taken me from ESP32-based energy monitoring to React interfaces and cloud-native deployments.</p><p>I'm continuing to strengthen my engineering fundamentals while exploring practical ways to build reliable, useful technology.</p></motion.div>
-     <motion.div className="about-stats" variants={reveal} initial="hidden" whileInView="show" viewport={{once:true}}><div className="stat"><strong>2027</strong><span>Expected graduation</span></div><div className="stat"><strong>04<span>+</span></strong><span>Highlighted projects</span></div><div className="stat"><strong>3</strong><span>Core areas: software, IoT, cloud</span></div><div className="stat"><strong>∞</strong><span>Things left to build</span></div></motion.div></div>
-   </Section>
-   <Section id="projects" eyebrow="02 / SELECTED WORK" title={<>Projects with a <span className="gradient-text">purpose.</span></>}>
-    <div className="project-grid">{projects.map((p,i)=><motion.article className={'project-card '+(p.featured?'featured':'')} key={p.n} variants={reveal} initial="hidden" whileInView="show" viewport={{once:true,amount:.12}} transition={{delay:i*.07}}><div className="project-top"><span className="project-number">{p.n} / 04</span><a href={p.link} target="_blank" rel="noreferrer" aria-label={'Open '+p.title}><ArrowUpRight/></a></div><div className="project-type">{p.type}</div><h3>{p.title}</h3><p>{p.desc}</p><div className="tags">{p.tags.map(t=><span key={t}>{t}</span>)}</div><a className="project-link" href={p.link} target="_blank" rel="noreferrer">View project <ExternalLink size={14}/></a></motion.article>)}</div>
-   </Section>
-   <Section id="skills" eyebrow="03 / TOOLKIT" title={<>Tools I work <span className="gradient-text">with.</span></>}>
-    <div className="skills-grid">{skills.map((s,i)=><motion.div className="skill-card" key={s.title} variants={reveal} initial="hidden" whileInView="show" viewport={{once:true}} transition={{delay:i*.08}}><div className="skill-icon"><s.icon size={21}/></div><h3>{s.title}</h3><div className="skill-tags">{s.items.map(x=><span key={x}>{x}</span>)}</div></motion.div>)}</div>
-    <p className="skills-note"><Sparkles size={15}/> Tools and technologies reflect my project experience and ongoing learning.</p>
-   </Section>
-   <Section id="education" eyebrow="04 / EDUCATION" title="The learning journey.">
-    <motion.div className="education-card" variants={reveal} initial="hidden" whileInView="show" viewport={{once:true}}><div className="edu-icon"><GraduationCap size={26}/></div><div className="edu-content"><div className="edu-period">B.TECH · EXPECTED JULY 2027</div><h3>Bengal College of Engineering and Technology</h3><p>Computer Science & Engineering</p><span>Durgapur, West Bengal, India</span></div><div className="edu-side">UNDERGRADUATE</div></motion.div>
-   </Section>
-   <section id="contact" className="contact-section wrap"><motion.div className="contact-box" variants={reveal} initial="hidden" whileInView="show" viewport={{once:true}}><div className="eyebrow">05 / WHAT'S NEXT?</div><h2>Have a project or<br/><span className="gradient-text">an opportunity?</span></h2><p>I'm always interested in connecting with people building thoughtful technology. Let's talk.</p><div className="contact-details"><a href="mailto:arunabhdas2005@gmail.com"><Mail size={15}/> arunabhdas2005@gmail.com</a><a href="tel:9434845512"><span>☎</span> +91 9434845512</a></div><div className="contact-links"><a className="button primary" href={LINKEDIN} target="_blank" rel="noreferrer">Connect on LinkedIn <ArrowUpRight size={17}/></a><a className="button secondary" href="./cv.pdf" target="_blank" rel="noreferrer">Download CV <ArrowDown size={16}/></a></div><img className="contact-photo" src="./profile.png" alt="Arunabh Das"/><div className="contact-orb"/></motion.div></section>
-  </main>
-  <footer className="footer wrap"><a className="brand" href="#home"><span className="brand-mark">A<span>.</span></span><span>ARUNABH DAS</span></a><span>Designed & built with React. © {new Date().getFullYear()} Arunabh Das.</span><a href="#home" className="back-top">BACK TO TOP ↑</a></footer>
- </div>
-}
-export default App
+const PHONE = '+91 9434845512'
 
+const projects = [
+  {
+    n: '01',
+    title: 'Volt',
+    type: 'IoT · Android · Energy Monitoring',
+    desc: 'A smart energy monitoring and control system built around ESP32, PZEM-004T, relay modules, OLED display and Firebase Realtime Database, with a companion Android app.',
+    tags: ['ESP32', 'Firebase', 'Android', 'IoT', 'C++'],
+    link: 'https://github.com/Beast-lucifer-666/Volt-v1',
+  },
+  {
+    n: '02',
+    title: 'Cyber Sentinel',
+    type: 'Python · Flask · DevOps',
+    desc: 'A Flask-based cybersecurity project developed alongside a cloud-native toolchain and deployment workflow.',
+    tags: ['Python', 'Flask', 'Docker', 'AWS', 'CI/CD'],
+    link: GITHUB,
+  },
+  {
+    n: '03',
+    title: 'Daily Motivation',
+    type: 'Frontend · React',
+    desc: 'A daily motivation experience with time-aware greetings, quotes, a live clock, weather, theme switching and animated visual details.',
+    tags: ['React', 'Vite', 'JavaScript', 'CSS'],
+    link: GITHUB,
+  },
+  {
+    n: '04',
+    title: 'Banking Sector Production Build',
+    type: 'Cloud · Kubernetes · Deployment',
+    desc: 'A production-style banking application deployment project exploring Kubernetes workloads, MySQL, service exposure, health checks and rollout strategies.',
+    tags: ['AWS', 'Kubernetes', 'Docker', 'MySQL', 'CI/CD'],
+    link: 'https://github.com/Beast-lucifer-666/BANKING-SECTOR-PRODUCTION-BUILD',
+  },
+]
+
+const skills = [
+  { icon: Code2, title: 'Programming', items: ['C', 'Java', 'Python', 'JavaScript'] },
+  { icon: Layers3, title: 'Frontend & Apps', items: ['React', 'Vite', 'HTML & CSS', 'Android'] },
+  { icon: Cpu, title: 'IoT & Backend', items: ['ESP32', 'Firebase', 'Flask', 'REST APIs'] },
+  { icon: Cloud, title: 'Cloud & Data', items: ['AWS', 'Docker', 'Kubernetes', 'SQL', 'MongoDB', 'CI/CD'] },
+]
+
+const fadeUp = {
+  hidden: { opacity: 0, y: 28 },
+  show: { opacity: 1, y: 0, transition: { duration: 0.75, ease: [0.22, 1, 0.36, 1] } },
+}
+
+function StarField({ count = 28 }) {
+  return (
+    <div className="yn-stars" aria-hidden="true">
+      {Array.from({ length: count }, (_, i) => (
+        <i key={i} style={{ '--i': i + 1 }} />
+      ))}
+    </div>
+  )
+}
+
+function RedThread({ d, color = '#e63950' }) {
+  return (
+    <svg className="yn-thread-svg" viewBox="0 0 1440 700" preserveAspectRatio="none" aria-hidden="true">
+      <motion.path
+        d={d}
+        fill="none"
+        stroke={color}
+        strokeWidth="3"
+        strokeLinecap="round"
+        initial={{ pathLength: 0, opacity: 0.2 }}
+        whileInView={{ pathLength: 1, opacity: 0.9 }}
+        viewport={{ once: true, amount: 0.2 }}
+        transition={{ duration: 1.8, ease: 'easeInOut' }}
+      />
+    </svg>
+  )
+}
+
+export default function App() {
+  const [menuOpen, setMenuOpen] = useState(false)
+  const [selectedProject, setSelectedProject] = useState(null)
+
+  return (
+    <div className="yn-app">
+      {/* Floating Glassmorphic Pill Navbar */}
+      <header className="yn-nav-wrap">
+        <nav className="yn-nav">
+          <a className="yn-brand" href="#home" onClick={() => setMenuOpen(false)}>
+            <span className="yn-brand-dot" />
+            <span>Arunabh Das</span>
+          </a>
+
+          <button
+            className="yn-menu-btn"
+            onClick={() => setMenuOpen((v) => !v)}
+            aria-label="Toggle navigation"
+          >
+            {menuOpen ? <X size={20} /> : <Menu size={20} />}
+          </button>
+
+          <div className={`yn-nav-links ${menuOpen ? 'open' : ''}`}>
+            <a href="#journey" onClick={() => setMenuOpen(false)}>Journey</a>
+            <a href="#skills" onClick={() => setMenuOpen(false)}>Constellation</a>
+            <a href="#projects" onClick={() => setMenuOpen(false)}>Projects</a>
+            <a href="#contact" onClick={() => setMenuOpen(false)}>Contact</a>
+            <a className="yn-nav-cta" href={GITHUB} target="_blank" rel="noreferrer">
+              GitHub <ArrowUpRight size={14} />
+            </a>
+          </div>
+        </nav>
+      </header>
+
+      {/* 1. Hero Scene */}
+      <section id="home" className="yn-scene yn-sky-hero">
+        <div className="yn-comet" />
+        <RedThread d="M -40 420 C 260 120, 520 580, 820 260 C 1040 30, 1260 360, 1490 190" />
+
+        <div className="yn-container">
+          <motion.div
+            className="yn-hero-center"
+            initial={{ opacity: 0, y: 24 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.9 }}
+          >
+            <div className="yn-hero-kicker">
+              <Sparkles size={14} /> EVERY LAYER, ONE THREAD · 2027 GRADUATE
+            </div>
+            <h1 className="yn-hero-title">Arunabh Das</h1>
+            <p className="yn-hero-sub">
+              Computer Science &amp; Engineering student building across software, IoT, and cloud
+              technologies — turning ideas into real, connected systems.
+            </p>
+            <div className="yn-hero-actions">
+              <a className="yn-btn yn-btn-primary" href="#projects">
+                Explore My Work <ArrowUpRight size={16} />
+              </a>
+              <a className="yn-btn yn-btn-glass" href="#contact">
+                Let&apos;s Connect <ArrowDown size={16} />
+              </a>
+            </div>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* 2. Twilight Transition & Story */}
+      <section id="journey" className="yn-scene yn-sky-night">
+        <StarField count={32} />
+        <div className="yn-comet" style={{ top: '18%', right: '8%' }} />
+        <RedThread d="M -20 350 Q 420 120 720 350 T 1460 280" color="rgba(255,255,255,0.65)" />
+
+        <div className="yn-container">
+          <motion.div
+            className="yn-story-quote"
+            variants={fadeUp}
+            initial="hidden"
+            whileInView="show"
+            viewport={{ once: true, amount: 0.25 }}
+          >
+            <div className="yn-eyebrow">01 / THE THREAD</div>
+            <h2 className="yn-serif-heading">
+              Somewhere between an Idea and Production...
+            </h2>
+            <p className="yn-body-lead">
+              The front end and the back end. Hardware and cloud. Two worlds — one space where they
+              meet. Every product begins with a spark, and I love building the bridge that brings it
+              to life.
+            </p>
+          </motion.div>
+
+          <motion.div
+            className="yn-about-grid"
+            variants={fadeUp}
+            initial="hidden"
+            whileInView="show"
+            viewport={{ once: true, amount: 0.2 }}
+          >
+            <div className="yn-glass-card">
+              <div className="yn-eyebrow">B.TECH · EXPECTED JULY 2027</div>
+              <h3 className="yn-serif-heading" style={{ fontSize: 32, marginBottom: 12 }}>
+                Bengal College of Engineering &amp; Technology
+              </h3>
+              <p className="yn-body-lead" style={{ fontSize: 15, marginBottom: 16 }}>
+                Pursuing Computer Science &amp; Engineering in Durgapur, West Bengal. My work spans
+                ESP32-based energy monitoring, React interfaces, and cloud-native Kubernetes
+                deployments.
+              </p>
+              <div style={{ display: 'flex', alignItems: 'center', gap: 10, fontSize: 13, color: '#cdd7ee' }}>
+                <GraduationCap size={18} /> Undergraduate · <MapPin size={16} /> West Bengal, India
+              </div>
+            </div>
+
+            <div className="yn-stats-grid">
+              <div className="yn-stat-box">
+                <strong>2027</strong>
+                <span>Expected graduation</span>
+              </div>
+              <div className="yn-stat-box">
+                <strong>04+</strong>
+                <span>Highlighted projects</span>
+              </div>
+              <div className="yn-stat-box">
+                <strong>03</strong>
+                <span>Software · IoT · Cloud</span>
+              </div>
+              <div className="yn-stat-box">
+                <strong>∞</strong>
+                <span>Things left to build</span>
+              </div>
+            </div>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* 3. Skills Constellation */}
+      <section id="skills" className="yn-scene yn-sky-constellation">
+        <StarField count={40} />
+        <div className="yn-container">
+          <motion.div
+            className="yn-story-quote"
+            variants={fadeUp}
+            initial="hidden"
+            whileInView="show"
+            viewport={{ once: true, amount: 0.2 }}
+          >
+            <div className="yn-eyebrow">02 / TOOLKIT</div>
+            <h2 className="yn-serif-heading">
+              Every skill, a star. Together, a constellation.
+            </h2>
+          </motion.div>
+
+          <div className="yn-skills-grid">
+            {skills.map((s, i) => (
+              <motion.div
+                key={s.title}
+                className="yn-skill-node"
+                variants={fadeUp}
+                initial="hidden"
+                whileInView="show"
+                viewport={{ once: true, amount: 0.15 }}
+                transition={{ delay: i * 0.08 }}
+              >
+                <s.icon size={22} color="#7ce8ff" />
+                <h3>{s.title}</h3>
+                <div className="yn-tag-list">
+                  {s.items.map((item) => (
+                    <span className="yn-tag" key={item}>{item}</span>
+                  ))}
+                </div>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* 4. Projects Section */}
+      <section id="projects" className="yn-scene yn-sky-dusk">
+        <RedThread d="M -30 520 C 320 220, 720 620, 1470 220" />
+        <div className="yn-container">
+          <motion.div
+            className="yn-story-quote"
+            variants={fadeUp}
+            initial="hidden"
+            whileInView="show"
+            viewport={{ once: true, amount: 0.2 }}
+          >
+            <div className="yn-eyebrow">03 / SELECTED WORK</div>
+            <h2 className="yn-serif-heading">Every project, a station on the line.</h2>
+          </motion.div>
+
+          <div className="yn-projects-grid">
+            {projects.map((p, i) => (
+              <motion.article
+                key={p.n}
+                className="yn-project-card"
+                variants={fadeUp}
+                initial="hidden"
+                whileInView="show"
+                viewport={{ once: true, amount: 0.15 }}
+                transition={{ delay: i * 0.08 }}
+                onClick={() => setSelectedProject(p)}
+              >
+                <div className="yn-project-banner">
+                  <span className="yn-tag">{p.n} / 04</span>
+                  <span className="yn-tag">{p.type}</span>
+                </div>
+                <div className="yn-project-body">
+                  <h3>{p.title}</h3>
+                  <p>{p.desc}</p>
+                  <div className="yn-tag-list" style={{ marginTop: 'auto' }}>
+                    {p.tags.map((t) => (
+                      <span className="yn-tag" key={t}>{t}</span>
+                    ))}
+                  </div>
+                </div>
+              </motion.article>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* 5. Closing / Contact Scene */}
+      <section id="contact" className="yn-scene yn-sky-closing">
+        <StarField count={26} />
+        <div className="yn-comet" style={{ top: '20%', right: '16%' }} />
+        <div className="yn-container">
+          <motion.div
+            className="yn-story-quote yn-glass-card"
+            variants={fadeUp}
+            initial="hidden"
+            whileInView="show"
+            viewport={{ once: true, amount: 0.2 }}
+          >
+            <div className="yn-eyebrow">04 / WHAT&apos;S NEXT?</div>
+            <h2 className="yn-serif-heading">Until Our Paths Cross Again</h2>
+            <p className="yn-body-lead">
+              I&apos;m always open to connecting with people building thoughtful software, IoT, and
+              cloud systems.
+            </p>
+            <div className="yn-hero-actions" style={{ marginBottom: 22 }}>
+              <a className="yn-btn yn-btn-light" href={LINKEDIN} target="_blank" rel="noreferrer">
+                Connect on LinkedIn <ArrowUpRight size={16} />
+              </a>
+              <a className="yn-btn yn-btn-outline" href="./cv.pdf" target="_blank" rel="noreferrer">
+                Download CV <ArrowDown size={16} />
+              </a>
+            </div>
+            <div style={{ display: 'flex', justifyContent: 'center', flexWrap: 'wrap', gap: 18, fontSize: 13, color: '#cdd7ee' }}>
+              <a href={`mailto:${EMAIL}`} style={{ display: 'inline-flex', alignItems: 'center', gap: 6 }}>
+                <Mail size={15} /> {EMAIL}
+              </a>
+              <a href={`tel:${PHONE.replace(/\s+/g, '')}`} style={{ display: 'inline-flex', alignItems: 'center', gap: 6 }}>
+                <Phone size={15} /> {PHONE}
+              </a>
+              <a href={GITHUB} target="_blank" rel="noreferrer" style={{ display: 'inline-flex', alignItems: 'center', gap: 6 }}>
+                <Github size={15} /> GitHub
+              </a>
+            </div>
+          </motion.div>
+        </div>
+      </section>
+
+      <footer className="yn-footer">
+        Designed &amp; built with React · © {new Date().getFullYear()} Arunabh Das
+      </footer>
+
+      {/* Project Detail Modal */}
+      <AnimatePresence>
+        {selectedProject && (
+          <motion.div
+            className="yn-modal-backdrop"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            onClick={() => setSelectedProject(null)}
+          >
+            <motion.div
+              className="yn-modal"
+              initial={{ scale: 0.94, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.94, opacity: 0 }}
+              onClick={(e) => e.stopPropagation()}
+            >
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 14 }}>
+                <span className="yn-eyebrow" style={{ marginBottom: 0 }}>{selectedProject.type}</span>
+                <button
+                  onClick={() => setSelectedProject(null)}
+                  style={{ background: 'none', border: 0, color: '#fff', cursor: 'pointer' }}
+                  aria-label="Close modal"
+                >
+                  <X size={20} />
+                </button>
+              </div>
+              <h3 className="yn-serif-heading" style={{ fontSize: 36, marginBottom: 12 }}>
+                {selectedProject.title}
+              </h3>
+              <p className="yn-body-lead" style={{ fontSize: 15, marginBottom: 20 }}>
+                {selectedProject.desc}
+              </p>
+              <div className="yn-tag-list" style={{ marginBottom: 24 }}>
+                {selectedProject.tags.map((t) => (
+                  <span className="yn-tag" key={t}>{t}</span>
+                ))}
+              </div>
+              <a
+                className="yn-btn yn-btn-light"
+                href={selectedProject.link}
+                target="_blank"
+                rel="noreferrer"
+              >
+                View on GitHub <ExternalLink size={15} />
+              </a>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </div>
+  )
+}
