@@ -303,6 +303,7 @@ export default function App() {
 
       {/* 1. Hero Scene */}
       <section id="home" className="yn-scene yn-sky-hero">
+        <div className="yn-scene-bg" aria-hidden="true" />
         <div className="yn-comet" />
         <MovingRedThread d="M -40 420 C 260 120, 520 580, 820 260 C 1040 30, 1260 360, 1490 190" />
 
@@ -340,6 +341,7 @@ export default function App() {
 
       {/* 2. Twilight Transition & Story */}
       <section id="journey" className="yn-scene yn-sky-night">
+        <div className="yn-scene-bg" aria-hidden="true" />
         <StarField count={32} />
         <div className="yn-comet" style={{ top: '18%', right: '8%' }} />
         <MovingRedThread d="M -20 350 Q 420 120 720 350 T 1460 280" color="rgba(255,255,255,0.65)" />
@@ -409,6 +411,7 @@ export default function App() {
 
       {/* 3. Skills Constellation */}
       <section id="skills" className="yn-scene yn-sky-constellation">
+        <div className="yn-scene-bg" aria-hidden="true" />
         <StarField count={40} />
         <div className="yn-container">
           <motion.div
@@ -450,6 +453,7 @@ export default function App() {
 
       {/* 4. Projects Section */}
       <section id="projects" className="yn-scene yn-sky-dusk">
+        <div className="yn-scene-bg" aria-hidden="true" />
         <MovingRedThread d="M -30 520 C 320 220, 720 620, 1470 220" />
         <div className="yn-container">
           <motion.div
@@ -496,6 +500,7 @@ export default function App() {
 
       {/* 5. Closing / Contact Scene */}
       <section id="contact" className="yn-scene yn-sky-closing">
+        <div className="yn-scene-bg" aria-hidden="true" />
         <StarField count={26} />
         <div className="yn-comet" style={{ top: '20%', right: '16%' }} />
         <div className="yn-container">
