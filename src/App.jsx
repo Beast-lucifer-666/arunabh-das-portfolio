@@ -68,8 +68,14 @@ const skills = [
 ]
 
 const fadeUp = {
-  hidden: { opacity: 0, y: 28 },
-  show: { opacity: 1, y: 0, transition: { duration: 0.75, ease: [0.22, 1, 0.36, 1] } },
+  hidden: { opacity: 0, y: 36, scale: 0.97, filter: 'blur(6px)' },
+  show: {
+    opacity: 1,
+    y: 0,
+    scale: 1,
+    filter: 'blur(0px)',
+    transition: { duration: 0.95, ease: [0.22, 1, 0.36, 1] },
+  },
 }
 
 function StarField({ count = 28 }) {
@@ -107,21 +113,44 @@ function MovingRedThread({ d, color = '#e63950' }) {
 
 function CustomCursor() {
   const [pos, setPos] = useState({ x: -100, y: -100 })
+  const [trail, setTrail] = useState([])
 
   useEffect(() => {
-    const move = (e) => setPos({ x: e.clientX, y: e.clientY })
+    let id = 0
+    const move = (e) => {
+      const next = { x: e.clientX, y: e.clientY }
+      setPos(next)
+      id += 1
+      const item = { id, x: e.clientX, y: e.clientY }
+      setTrail((prev) => [...prev.slice(-14), item])
+    }
     window.addEventListener('mousemove', move)
     return () => window.removeEventListener('mousemove', move)
   }, [])
 
   return (
     <>
-      <div className="yn-cursor-dot" style={{ left: pos.x, top: pos.y }} />
+      {trail.map((t, idx) => (
+        <motion.div
+          key={t.id}
+          className="yn-star-trail"
+          initial={{ opacity: 0.85, scale: 1 }}
+          animate={{ opacity: 0, scale: 0.2 }}
+          transition={{ duration: 0.55, ease: 'easeOut' }}
+          style={{ left: t.x, top: t.y, opacity: (idx + 1) / trail.length }}
+        />
+      ))}
       <motion.div
-        className="yn-cursor-ring"
-        animate={{ left: pos.x, top: pos.y }}
-        transition={{ type: 'spring', stiffness: 260, damping: 24, mass: 0.4 }}
-      />
+        className="yn-star-cursor"
+        animate={{ left: pos.x, top: pos.y, rotate: [0, 90, 180] }}
+        transition={{
+          left: { duration: 0 },
+          top: { duration: 0 },
+          rotate: { duration: 4, repeat: Infinity, ease: 'linear' },
+        }}
+      >
+        ✦
+      </motion.div>
     </>
   )
 }
@@ -133,6 +162,35 @@ export default function App() {
   const audioRef = useRef(null)
   const ctxRef = useRef(null)
   const timerRef = useRef(null)
+
+  // Autoplay Sparkle by default (and unlock on first interaction if browser blocks autoplay)
+  useEffect(() => {
+    const audio = new Audio('./sparkle.mp3')
+    audio.loop = true
+    audio.volume = 0.45
+    audioRef.current = audio
+
+    const tryPlay = async () => {
+      try {
+        await audio.play()
+        setMusicPlaying(true)
+        window.removeEventListener('pointerdown', tryPlay)
+        window.removeEventListener('keydown', tryPlay)
+      } catch {
+        // Browser blocked autoplay until first user gesture
+      }
+    }
+
+    tryPlay()
+    window.addEventListener('pointerdown', tryPlay, { once: true })
+    window.addEventListener('keydown', tryPlay, { once: true })
+
+    return () => {
+      window.removeEventListener('pointerdown', tryPlay)
+      window.removeEventListener('keydown', tryPlay)
+      audio.pause()
+    }
+  }, [])
 
   // Disable right-click, text selection, copy, cut, and drag
   useEffect(() => {

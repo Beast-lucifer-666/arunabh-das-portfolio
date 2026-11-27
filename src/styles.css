@@ -47,36 +47,37 @@ a {
   background: var(--bg-night);
 }
 
-/* Custom Cursor (Desktop) */
-.yn-cursor-dot,
-.yn-cursor-ring {
+/* Sparkling Star Cursor & Trail (Desktop) */
+.yn-star-cursor {
   position: fixed;
   top: 0;
   left: 0;
   pointer-events: none;
   z-index: 9999;
+  transform: translate(-50%, -50%);
+  color: #fff;
+  font-size: 20px;
+  line-height: 1;
+  text-shadow: 0 0 10px #7ce8ff, 0 0 22px #e63950, 0 0 34px #fff;
+}
+
+.yn-star-trail {
+  position: fixed;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+  z-index: 9998;
+  width: 7px;
+  height: 7px;
   border-radius: 50%;
+  background: radial-gradient(circle, #ffffff 0%, #7ce8ff 55%, rgba(230, 57, 80, 0) 100%);
+  box-shadow: 0 0 12px #7ce8ff, 0 0 20px rgba(230, 57, 80, 0.65);
   transform: translate(-50%, -50%);
 }
 
-.yn-cursor-dot {
-  width: 8px;
-  height: 8px;
-  background: var(--thread-red);
-  box-shadow: 0 0 14px var(--thread-red), 0 0 28px rgba(230, 57, 80, 0.6);
-}
-
-.yn-cursor-ring {
-  width: 34px;
-  height: 34px;
-  border: 1.5px solid rgba(124, 232, 255, 0.75);
-  box-shadow: 0 0 18px rgba(124, 232, 255, 0.25);
-  transition: width 0.2s ease, height 0.2s ease, border-color 0.2s ease;
-}
-
 @media (pointer: coarse) {
-  .yn-cursor-dot,
-  .yn-cursor-ring {
+  .yn-star-cursor,
+  .yn-star-trail {
     display: none;
   }
 }
