@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import {
   ArrowUpRight,
@@ -15,6 +15,8 @@ import {
   Menu,
   X,
   ExternalLink,
+  Volume2,
+  VolumeX,
   GitBranch as Github,
 } from 'lucide-react'
 
@@ -80,7 +82,7 @@ function StarField({ count = 28 }) {
   )
 }
 
-function RedThread({ d, color = '#e63950' }) {
+function MovingRedThread({ d, color = '#e63950' }) {
   return (
     <svg className="yn-thread-svg" viewBox="0 0 1440 700" preserveAspectRatio="none" aria-hidden="true">
       <motion.path
@@ -89,21 +91,126 @@ function RedThread({ d, color = '#e63950' }) {
         stroke={color}
         strokeWidth="3"
         strokeLinecap="round"
-        initial={{ pathLength: 0, opacity: 0.2 }}
-        whileInView={{ pathLength: 1, opacity: 0.9 }}
-        viewport={{ once: true, amount: 0.2 }}
-        transition={{ duration: 1.8, ease: 'easeInOut' }}
+        strokeDasharray="16 10"
+        initial={{ pathLength: 0, opacity: 0.25 }}
+        whileInView={{ pathLength: 1, opacity: 0.92 }}
+        viewport={{ once: true, amount: 0.15 }}
+        animate={{ strokeDashoffset: [0, -104] }}
+        transition={{
+          pathLength: { duration: 1.8, ease: 'easeInOut' },
+          strokeDashoffset: { duration: 4, repeat: Infinity, ease: 'linear' },
+        }}
       />
     </svg>
+  )
+}
+
+function CustomCursor() {
+  const [pos, setPos] = useState({ x: -100, y: -100 })
+
+  useEffect(() => {
+    const move = (e) => setPos({ x: e.clientX, y: e.clientY })
+    window.addEventListener('mousemove', move)
+    return () => window.removeEventListener('mousemove', move)
+  }, [])
+
+  return (
+    <>
+      <div className="yn-cursor-dot" style={{ left: pos.x, top: pos.y }} />
+      <motion.div
+        className="yn-cursor-ring"
+        animate={{ left: pos.x, top: pos.y }}
+        transition={{ type: 'spring', stiffness: 260, damping: 24, mass: 0.4 }}
+      />
+    </>
   )
 }
 
 export default function App() {
   const [menuOpen, setMenuOpen] = useState(false)
   const [selectedProject, setSelectedProject] = useState(null)
+  const [musicPlaying, setMusicPlaying] = useState(false)
+  const audioRef = useRef(null)
+  const ctxRef = useRef(null)
+  const timerRef = useRef(null)
+
+  // Disable right-click, text selection, copy, cut, and drag
+  useEffect(() => {
+    const block = (e) => e.preventDefault()
+    document.addEventListener('contextmenu', block)
+    document.addEventListener('copy', block)
+    document.addEventListener('cut', block)
+    document.addEventListener('selectstart', block)
+    document.addEventListener('dragstart', block)
+    return () => {
+      document.removeEventListener('contextmenu', block)
+      document.removeEventListener('copy', block)
+      document.removeEventListener('cut', block)
+      document.removeEventListener('selectstart', block)
+      document.removeEventListener('dragstart', block)
+    }
+  }, [])
+
+  const stopSynth = () => {
+    if (timerRef.current) clearInterval(timerRef.current)
+    timerRef.current = null
+    if (ctxRef.current) {
+      ctxRef.current.close().catch(() => {})
+      ctxRef.current = null
+    }
+  }
+
+  const startSparkleSynth = () => {
+    const AudioCtx = window.AudioContext || window.webkitAudioContext
+    if (!AudioCtx) return
+    const ctx = new AudioCtx()
+    ctxRef.current = ctx
+    // Gentle Sparkle-inspired piano arpeggio notes (Hz)
+    const notes = [523.25, 659.25, 783.99, 987.77, 783.99, 659.25, 587.33, 880.0]
+    let step = 0
+    const playNote = () => {
+      if (!ctxRef.current) return
+      const osc = ctx.createOscillator()
+      const gain = ctx.createGain()
+      osc.type = 'sine'
+      osc.frequency.value = notes[step % notes.length]
+      gain.gain.setValueAtTime(0.001, ctx.currentTime)
+      gain.gain.exponentialRampToValueAtTime(0.06, ctx.currentTime + 0.05)
+      gain.gain.exponentialRampToValueAtTime(0.0001, ctx.currentTime + 0.7)
+      osc.connect(gain)
+      gain.connect(ctx.destination)
+      osc.start()
+      osc.stop(ctx.currentTime + 0.72)
+      step += 1
+    }
+    playNote()
+    timerRef.current = setInterval(playNote, 420)
+  }
+
+  const toggleMusic = async () => {
+    if (musicPlaying) {
+      if (audioRef.current) audioRef.current.pause()
+      stopSynth()
+      setMusicPlaying(false)
+      return
+    }
+    try {
+      if (!audioRef.current) {
+        audioRef.current = new Audio('./sparkle.mp3')
+        audioRef.current.loop = true
+      }
+      await audioRef.current.play()
+      setMusicPlaying(true)
+    } catch {
+      startSparkleSynth()
+      setMusicPlaying(true)
+    }
+  }
 
   return (
     <div className="yn-app">
+      <CustomCursor />
+
       {/* Floating Glassmorphic Pill Navbar */}
       <header className="yn-nav-wrap">
         <nav className="yn-nav">
@@ -125,6 +232,10 @@ export default function App() {
             <a href="#skills" onClick={() => setMenuOpen(false)}>Constellation</a>
             <a href="#projects" onClick={() => setMenuOpen(false)}>Projects</a>
             <a href="#contact" onClick={() => setMenuOpen(false)}>Contact</a>
+            <button type="button" className="yn-music-btn" onClick={toggleMusic}>
+              {musicPlaying ? <Volume2 size={14} /> : <VolumeX size={14} />}
+              {musicPlaying ? 'Sparkle On' : 'Play Sparkle'}
+            </button>
             <a className="yn-nav-cta" href={GITHUB} target="_blank" rel="noreferrer">
               GitHub <ArrowUpRight size={14} />
             </a>
@@ -135,7 +246,7 @@ export default function App() {
       {/* 1. Hero Scene */}
       <section id="home" className="yn-scene yn-sky-hero">
         <div className="yn-comet" />
-        <RedThread d="M -40 420 C 260 120, 520 580, 820 260 C 1040 30, 1260 360, 1490 190" />
+        <MovingRedThread d="M -40 420 C 260 120, 520 580, 820 260 C 1040 30, 1260 360, 1490 190" />
 
         <div className="yn-container">
           <motion.div
@@ -144,6 +255,11 @@ export default function App() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.9 }}
           >
+            <div>
+              <div className="yn-profile-wrap">
+                <img className="yn-profile-img" src="./profile.png" alt="Arunabh Das" />
+              </div>
+            </div>
             <div className="yn-hero-kicker">
               <Sparkles size={14} /> EVERY LAYER, ONE THREAD · 2027 GRADUATE
             </div>
@@ -168,7 +284,7 @@ export default function App() {
       <section id="journey" className="yn-scene yn-sky-night">
         <StarField count={32} />
         <div className="yn-comet" style={{ top: '18%', right: '8%' }} />
-        <RedThread d="M -20 350 Q 420 120 720 350 T 1460 280" color="rgba(255,255,255,0.65)" />
+        <MovingRedThread d="M -20 350 Q 420 120 720 350 T 1460 280" color="rgba(255,255,255,0.65)" />
 
         <div className="yn-container">
           <motion.div
@@ -276,7 +392,7 @@ export default function App() {
 
       {/* 4. Projects Section */}
       <section id="projects" className="yn-scene yn-sky-dusk">
-        <RedThread d="M -30 520 C 320 220, 720 620, 1470 220" />
+        <MovingRedThread d="M -30 520 C 320 220, 720 620, 1470 220" />
         <div className="yn-container">
           <motion.div
             className="yn-story-quote"
