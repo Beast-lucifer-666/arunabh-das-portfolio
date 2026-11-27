@@ -67,6 +67,30 @@ const skills = [
   { icon: Cloud, title: 'Cloud & Data', items: ['AWS', 'Docker', 'Kubernetes', 'SQL', 'MongoDB', 'CI/CD'] },
 ]
 
+const techInfo = {
+  C: 'A foundational systems programming language used for low-level memory control, embedded firmware, and performance-critical software.',
+  Java: 'An object-oriented, platform-independent language widely used for enterprise backends, Android apps, and scalable systems.',
+  Python: 'A versatile, readable language used for backend web services (Flask), automation, cybersecurity tooling, and data processing.',
+  JavaScript: 'The core language of the web, powering interactive frontend interfaces, React applications, and asynchronous browser logic.',
+  React: 'A declarative component-based UI library for building fast, interactive single-page web applications.',
+  Vite: 'A modern, lightning-fast frontend build tool and dev server with instant hot module replacement.',
+  'HTML & CSS': 'The foundational markup and styling technologies of the web, used to structure content and craft responsive layouts.',
+  Android: 'Mobile application development for Android devices, including companion apps that connect with IoT hardware.',
+  ESP32: 'A low-cost, Wi-Fi & Bluetooth-enabled microcontroller ideal for smart IoT devices, sensors, and real-time hardware control.',
+  Firebase: 'Google’s cloud platform offering Realtime Database, authentication, and instant data sync between IoT devices and apps.',
+  Flask: 'A lightweight Python web framework used to build clean REST APIs, dashboards, and backend services.',
+  'REST APIs': 'Architectural style for networked applications using standard HTTP methods to exchange structured JSON data.',
+  AWS: 'Amazon Web Services — cloud infrastructure for hosting, compute, storage, and scalable production deployments.',
+  Docker: 'Containerization platform that packages applications and dependencies into portable, consistent environments.',
+  Kubernetes: 'Container orchestration system for automating deployment, scaling, health checks, and rollouts of containerized apps.',
+  SQL: 'Structured Query Language for designing, querying, and managing relational databases.',
+  MongoDB: 'A flexible NoSQL document database for storing JSON-like data at scale.',
+  'CI/CD': 'Continuous Integration and Continuous Deployment pipelines that automate testing, building, and releasing code.',
+  IoT: 'Internet of Things — connecting physical sensors, microcontrollers, and actuators to cloud software and mobile apps.',
+  'C++': 'An extension of C with object-oriented features, commonly used for embedded firmware on microcontrollers like ESP32.',
+  MySQL: 'A widely used open-source relational database management system for structured, transactional data.',
+}
+
 const fadeUp = {
   hidden: { opacity: 0, y: 36, scale: 0.97, filter: 'blur(6px)' },
   show: {
@@ -158,6 +182,7 @@ function CustomCursor() {
 export default function App() {
   const [menuOpen, setMenuOpen] = useState(false)
   const [selectedProject, setSelectedProject] = useState(null)
+  const [selectedTech, setSelectedTech] = useState(null)
   const [musicPlaying, setMusicPlaying] = useState(false)
   const audioRef = useRef(null)
   const ctxRef = useRef(null)
@@ -449,7 +474,14 @@ export default function App() {
                 <h3>{s.title}</h3>
                 <div className="yn-tag-list">
                   {s.items.map((item) => (
-                    <span className="yn-tag" key={item}>{item}</span>
+                    <button
+                      type="button"
+                      className="yn-tag yn-tag-btn"
+                      key={item}
+                      onClick={() => setSelectedTech(item)}
+                    >
+                      {item}
+                    </button>
                   ))}
                 </div>
               </motion.div>
@@ -496,7 +528,17 @@ export default function App() {
                   <p>{p.desc}</p>
                   <div className="yn-tag-list" style={{ marginTop: 'auto' }}>
                     {p.tags.map((t) => (
-                      <span className="yn-tag" key={t}>{t}</span>
+                      <button
+                        type="button"
+                        className="yn-tag yn-tag-btn"
+                        key={t}
+                        onClick={(e) => {
+                          e.stopPropagation()
+                          setSelectedTech(t)
+                        }}
+                      >
+                        {t}
+                      </button>
                     ))}
                   </div>
                 </div>
@@ -588,7 +630,14 @@ export default function App() {
               </p>
               <div className="yn-tag-list" style={{ marginBottom: 24 }}>
                 {selectedProject.tags.map((t) => (
-                  <span className="yn-tag" key={t}>{t}</span>
+                  <button
+                    type="button"
+                    className="yn-tag yn-tag-btn"
+                    key={t}
+                    onClick={() => setSelectedTech(t)}
+                  >
+                    {t}
+                  </button>
                 ))}
               </div>
               <a
@@ -599,6 +648,45 @@ export default function App() {
               >
                 View on GitHub <ExternalLink size={15} />
               </a>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      {/* Tech / Skill Info Popup */}
+      <AnimatePresence>
+        {selectedTech && (
+          <motion.div
+            className="yn-modal-backdrop"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            onClick={() => setSelectedTech(null)}
+          >
+            <motion.div
+              className="yn-modal"
+              style={{ width: 'min(460px, 100%)' }}
+              initial={{ scale: 0.94, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.94, opacity: 0 }}
+              onClick={(e) => e.stopPropagation()}
+            >
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 12 }}>
+                <span className="yn-eyebrow" style={{ marginBottom: 0 }}>TECHNOLOGY</span>
+                <button
+                  onClick={() => setSelectedTech(null)}
+                  style={{ background: 'none', border: 0, color: '#fff', cursor: 'pointer' }}
+                  aria-label="Close popup"
+                >
+                  <X size={20} />
+                </button>
+              </div>
+              <h3 className="yn-serif-heading" style={{ fontSize: 34, marginBottom: 12 }}>
+                {selectedTech}
+              </h3>
+              <p className="yn-body-lead" style={{ fontSize: 15, marginBottom: 0 }}>
+                {techInfo[selectedTech] || `${selectedTech} is one of the core technologies used in my projects.`}
+              </p>
             </motion.div>
           </motion.div>
         )}
